@@ -11,4 +11,11 @@ public class AppDbContext : DbContext
     }
     
     public DbSet<Event> Event { get; set; }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Event>()
+            .Property(n => n.Id)
+            .ValueGeneratedOnAdd();
+    }
 }
