@@ -2,3 +2,7 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializa todos los componentes de Materialize a la vez
+    M.AutoInit();
+});
