@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - CSharp_Themed_Events</title>
+    <title>@ViewData["Title"] - Anime Events</title>
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -11,38 +11,55 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/CSharp_Themed_Events.styles.css" asp-append-version="true"/>
 </head>
-<body>
-<header>
-    <nav class="white" role="navigation">
+<body class="grey lighten-5"> <header>
+    <nav class="deep-purple darken-4" role="navigation">
         <div class="nav-wrapper container">
-            <a class="brand-logo blue-text text-darken-2" asp-area="" asp-controller="Home" asp-action="Index" style="font-size: 1.5rem;">
-                CSharp_Themed_Events
+            <a class="brand-logo white-text" asp-area="" asp-controller="Home" asp-action="Index" style="font-size: 1.5rem; font-weight: 500;">
+                <i class="material-icons left">auto_awesome</i>Anime Events
             </a>
             
-            <a href="#" data-target="mobile-nav" class="sidenav-trigger blue-text text-darken-2"><i class="material-icons">menu</i></a>
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger white-text"><i class="material-icons">menu</i></a>
             
             <ul class="right hide-on-med-and-down">
-                <li><a class="blue-text text-darken-2" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a class="blue-text text-darken-2" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                <li><a class="white-text" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a class="white-text" asp-area="" asp-controller="Home" asp-action="Privacy">Gallery</a></li>
             </ul>
         </div>
     </nav>
 
     <ul class="sidenav" id="mobile-nav">
-        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+        <li>
+            <div class="user-view">
+                <div class="background deep-purple darken-2"></div>
+                <span class="white-text name">Anime Events</span>
+                <span class="white-text email">Menu de navegación</span>
+            </div>
+        </li>
+        <li><a asp-area="" asp-controller="Home" asp-action="Index"><i class="material-icons">home</i>Home</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="Privacy"><i class="material-icons">photo_library</i>Gallery</a></li>
     </ul>
 </header>
 
-<div class="container">
-    <main role="main" class="section">
-        @RenderBody()
-    </main>
-</div>
-
-<footer class="page-footer white grey-text text-darken-1" style="border-top: 1px solid #e0e0e0;">
+<main role="main" class="section">
     <div class="container">
-        &copy; 2026 - CSharp_Themed_Events - <a class="grey-text" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        @RenderBody()
+    </div>
+</main>
+
+<footer class="page-footer deep-purple darken-3">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Anime Events</h5>
+                <p class="grey-text text-lighten-4">Gestionando los mejores eventos temáticos de la comunidad.</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright deep-purple darken-4">
+        <div class="container">
+            &copy; 2026 - Anime Events
+            <a class="grey-text text-lighten-4 right" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+        </div>
     </div>
 </footer>
 
@@ -50,6 +67,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inicialización automática de Materialize
+        M.AutoInit();
+    });
+</script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>

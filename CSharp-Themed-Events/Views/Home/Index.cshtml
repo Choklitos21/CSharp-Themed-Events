@@ -1,8 +1,117 @@
-﻿@{
+﻿@model IEnumerable<CSharp_Themed_Events.Models.Event>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="section">
+    <div class="row">
+        <div class="col s12">
+            <div class="card z-depth-2">
+                <div class="card-content">
+                    <span class="card-title deep-purple-text text-darken-3" style="font-weight: bold;">
+                        <i class="material-icons left">event_available</i> Nuevo Evento Temático
+                    </span>
+                    
+                    <form asp-action="" method="post">
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <i class="material-icons prefix deep-purple-text text-darken-1">title</i>
+                                <input id="Name" name="Name" type="text" class="validate" required>
+                                <label for="Name">Name</label>
+                            </div>
+
+                            <div class="input-field col s12 m6">
+                                <i class="material-icons prefix deep-purple-text text-darken-1">today</i>
+                                <input id="Date" name="Date" type="text" class="datepicker" required>
+                                <label for="Date">Date</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix deep-purple-text text-darken-1">description</i>
+                                <textarea id="Description" name="Description" class="materialize-textarea"></textarea>
+                                <label for="Description">Description</label>
+                            </div>
+
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix deep-purple-text text-darken-1">place</i>
+                                <input id="Location" name="Location" type="text">
+                                <label for="Location">Location</label>
+                            </div>
+
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix deep-purple-text text-darken-1">link</i>
+                                <input id="ImgURL" name="ImgURL" type="url">
+                                <label for="ImgURL">Image URL</label>
+                            </div>
+
+                            <div class="input-field col s12 m4">
+                                <i class="material-icons prefix deep-purple-text text-darken-1">stars</i>
+                                <select id="Status" name="Status">
+                                    <option value="" disabled selected>Select Status</option>
+                                    <option value="ComingSoon">Coming Soon</option>
+                                    <option value="OnGoing">On Going</option>
+                                    <option value="Finished">Finished</option>
+                                </select>
+                                <label>Status</label>
+                            </div>
+                        </div>
+
+                        <div class="card-action right-align">
+                            <button type="submit" class="btn waves-effect waves-light deep-purple darken-2">
+                                <i class="material-icons left">send</i> Registrar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <table class="striped highlight white z-depth-1">
+                <thead class="deep-purple darken-3 white-text">
+                    <tr>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th class="center-align">Status</th>
+                        <th class="center-align">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><strong>@item.Name</strong></td>
+                                <td>@item.Date.ToShortDateString()</td>
+                                <td>@item.Location</td>
+                                <td class="center-align">
+                                    @switch (item.Status.ToString())
+                                    {
+                                        case "ComingSoon": 
+                                            <span class="badge deep-purple darken-1 white-text">Coming Soon</span> 
+                                            break;
+                                        case "OnGoing": 
+                                            <span class="badge deep-purple darken-2 white-text">On Going</span> 
+                                            break;
+                                        case "Finished": 
+                                            <span class="badge deep-purple darken-4 white-text">Finished</span> 
+                                            break;
+                                    }
+                                </td>
+                                <td class="center-align">
+                                    <a class="btn-flat waves-effect"><i class="material-icons deep-purple-text text-darken-1">edit</i></a>
+                                    <a class="btn-flat waves-effect"><i class="material-icons red-text">delete</i></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

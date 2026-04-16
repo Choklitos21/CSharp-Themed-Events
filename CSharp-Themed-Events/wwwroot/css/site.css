@@ -56,3 +56,27 @@ nav .brand-logo {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
+
+/* Color del foco en inputs de Materialize */
+input:focus:not([readonly]),
+textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #512da8 !important; /* deep-purple darken-2 */
+  box-shadow: 0 1px 0 0 #512da8 !important;
+}
+
+input:focus:not([readonly]) + label,
+textarea:focus:not([readonly]) + label {
+  color: #512da8 !important;
+}
+
+/* Iconos de prefijo en foco */
+.input-field .prefix.active {
+  color: #4527a0 !important; /* deep-purple darken-3 */
+}
+
+/* Ajuste de badges */
+.badge {
+  border-radius: 4px;
+  font-weight: 500;
+  min-width: 100px !important;
+}
