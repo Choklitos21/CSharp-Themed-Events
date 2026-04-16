@@ -13,9 +13,14 @@ public class EventService
         _context = appDbContext;
     }
     
-    
-    public async Task<List<Event>>? GetEvents()
+    public async Task<List<Event>> GetEvents()
     {
         return await _context.Event.ToListAsync();
+    }
+
+    public async Task AddEvent(Event newEvent)
+    {
+        await _context.AddAsync(newEvent);
+        await _context.SaveChangesAsync();
     }
 }

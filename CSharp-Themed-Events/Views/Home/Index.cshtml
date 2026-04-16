@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CSharp_Themed_Events.Models.Event>
+﻿@using CSharp_Themed_Events.Enums
+@model CSharp_Themed_Events.Models.EventViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -13,47 +14,53 @@
                         <i class="material-icons left">event_available</i> Nuevo Evento Temático
                     </span>
                     
-                    <form asp-action="" method="post">
+                    <form asp-action="CreateEvent" method="post">
                         <div class="row">
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix deep-purple-text text-darken-1">title</i>
-                                <input id="Name" name="Name" type="text" class="validate" required>
-                                <label for="Name">Name</label>
+                                <input asp-for="NewEvent.Name" type="text" class="validate" required>
+                                <label asp-for="NewEvent.Name">Name</label>
+                                <span asp-validation-for="NewEvent.Name" class="red-text"></span>
                             </div>
 
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix deep-purple-text text-darken-1">today</i>
-                                <input id="Date" name="Date" type="text" class="datepicker" required>
-                                <label for="Date">Date</label>
+                                <input asp-for="NewEvent.Date" type="text" class="datepicker" required>
+                                <label asp-for="NewEvent.Date">Date</label>
+                                <span asp-validation-for="NewEvent.Date" class="red-text"></span>
                             </div>
 
                             <div class="input-field col s12">
                                 <i class="material-icons prefix deep-purple-text text-darken-1">description</i>
-                                <textarea id="Description" name="Description" class="materialize-textarea"></textarea>
-                                <label for="Description">Description</label>
+                                <textarea asp-for="NewEvent.Description" class="materialize-textarea"></textarea>
+                                <label asp-for="NewEvent.Description">Description</label>
+                                <span asp-validation-for="NewEvent.Description" class="red-text"></span>
                             </div>
 
                             <div class="input-field col s12 m4">
                                 <i class="material-icons prefix deep-purple-text text-darken-1">place</i>
-                                <input id="Location" name="Location" type="text">
-                                <label for="Location">Location</label>
+                                <input asp-for="NewEvent.Location" type="text">
+                                <label asp-for="NewEvent.Location">Location</label>
+                                <span asp-validation-for="NewEvent.Location" class="red-text"></span>
                             </div>
 
                             <div class="input-field col s12 m4">
                                 <i class="material-icons prefix deep-purple-text text-darken-1">link</i>
-                                <input id="ImgURL" name="ImgURL" type="url">
-                                <label for="ImgURL">Image URL</label>
+                                <input asp-for="NewEvent.ImgURL" type="url">
+                                <label asp-for="NewEvent.ImgURL">Image URL</label>
+                                <span asp-validation-for="NewEvent.ImgURL" class="red-text"></span>
                             </div>
 
                             <div class="input-field col s12 m4">
                                 <i class="material-icons prefix deep-purple-text text-darken-1">stars</i>
-                                <select id="Status" name="Status">
+                                <select asp-for="NewEvent.Status">
                                     <option value="" disabled selected>Select Status</option>
-                                    <option value="ComingSoon">Coming Soon</option>
-                                    <option value="OnGoing">On Going</option>
-                                    <option value="Finished">Finished</option>
+                                    <option value="1">Coming Soon</option>
+                                    <option value="2">On Going</option>
+                                    <option value="3">Finished</option>
                                 </select>
                                 <label>Status</label>
+                                <span asp-validation-for="NewEvent.Status" class="red-text"></span>
                             </div>
                         </div>
 
@@ -81,24 +88,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model != null && Model.Any())
+                    @if (Model.EventList != null && Model.EventList.Any())
                     {
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.EventList)
                         {
                             <tr>
                                 <td><strong>@item.Name</strong></td>
                                 <td>@item.Date.ToShortDateString()</td>
                                 <td>@item.Location</td>
                                 <td class="center-align">
-                                    @switch (item.Status.ToString())
+                                    @switch (item.Status)
                                     {
-                                        case "ComingSoon": 
+                                        case EventStatus.ComingSoon: 
                                             <span class="badge deep-purple darken-1 white-text">Coming Soon</span> 
                                             break;
-                                        case "OnGoing": 
+                                        case EventStatus.OnGoing: 
                                             <span class="badge deep-purple darken-2 white-text">On Going</span> 
                                             break;
-                                        case "Finished": 
+                                        case EventStatus.Finished: 
                                             <span class="badge deep-purple darken-4 white-text">Finished</span> 
                                             break;
                                     }
