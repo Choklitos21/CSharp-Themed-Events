@@ -2,6 +2,45 @@
 @model IEnumerable<CSharp_Themed_Events.Models.Event>
 
 <div class="container">
+    
+    <div class="row">
+        <div class="col s12">
+            <div class="card-panel">
+                <h5 class="deep-purple-text"><i class="material-icons left">filter_list</i> Filtros</h5>
+                <form asp-action="" method="get">
+                    <div class="row" style="margin-bottom: 0;">
+                        <div class="input-field col s12 m3">
+                            <input type="date" name="startDate" id="startDate" value="@ViewContext.HttpContext.Request.Query["startDate"]">
+                            <label for="startDate" class="active">Desde</label>
+                        </div>
+
+                        <div class="input-field col s12 m3">
+                            <input type="date" name="endDate" id="endDate" value="@ViewContext.HttpContext.Request.Query["endDate"]">
+                            <label for="endDate" class="active">Hasta</label>
+                        </div>
+
+                        <div class="input-field col s12 m3">
+                            <select name="status">
+                                <option value="" selected>Todos los estados</option>
+                                <option value="1">Coming Soon</option>
+                                <option value="2">On Going</option>
+                                <option value="3">Finished</option>
+                            </select>
+                            <label>Estado</label>
+                        </div>
+
+                        <div class="input-field col s12 m3 center-align">
+                            <button type="submit" class="btn deep-purple waves-effect">
+                                Filtrar
+                            </button>
+                            <a asp-action="Index" class="btn-flat waves-effect grey-text">Limpiar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
     <div class="row">
         @if (Model != null && Model.Any())
         {
@@ -9,7 +48,7 @@
             {
                 <div class="col s12 m6 l4">
                     <div class="card hoverable gallery-card">
-                        
+
                         <div class="card-image">
                             @if (!string.IsNullOrEmpty(item.ImgURL))
                             {
@@ -19,7 +58,7 @@
                             {
                                 <img src="https://via.placeholder.com/400x200?text=Sin+Imagen" class="gallery-img">
                             }
-                            
+
                             <span class="btn-floating halfway-fab waves-effect waves-light @GetStatusColor(item.Status)">
                                 <i class="material-icons">@GetStatusIcon(item.Status)</i>
                             </span>
