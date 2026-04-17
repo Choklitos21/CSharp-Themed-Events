@@ -10,8 +10,7 @@ public class EventController : Controller
 {
 
     private readonly EventService _eventService;
-
-    // .NET inyectará el servicio automáticamente aquí
+    
     public EventController(EventService eventService)
     {
         _eventService = eventService;

@@ -6,34 +6,28 @@
     <div class="row">
         <div class="col s12">
             <div class="card-panel">
-                <h5 class="deep-purple-text"><i class="material-icons left">filter_list</i> Filtros</h5>
-                <form asp-action="" method="get">
+                <h5 class="deep-purple-text"><i class="material-icons left">filter_list</i> Filters</h5>
+                <form asp-controller="Gallery" asp-action="Gallery" method="get">
                     <div class="row" style="margin-bottom: 0;">
-                        <div class="input-field col s12 m3">
-                            <input type="date" name="startDate" id="startDate" value="@ViewContext.HttpContext.Request.Query["startDate"]">
-                            <label for="startDate" class="active">Desde</label>
-                        </div>
+                        <input class="datepicker" type="text" name="startDate" id="startDate" value="@ViewData["StartDate"]">
+                        <label for="startDate">Since</label>
 
-                        <div class="input-field col s12 m3">
-                            <input type="date" name="endDate" id="endDate" value="@ViewContext.HttpContext.Request.Query["endDate"]">
-                            <label for="endDate" class="active">Hasta</label>
-                        </div>
+                        <input class="datepicker" type="text" name="endDate" id="endDate" value="@ViewData["EndDate"]">
+                        <label for="endDate">Until</label>
 
-                        <div class="input-field col s12 m3">
-                            <select name="status">
-                                <option value="" selected>Todos los estados</option>
-                                <option value="1">Coming Soon</option>
-                                <option value="2">On Going</option>
-                                <option value="3">Finished</option>
-                            </select>
-                            <label>Estado</label>
-                        </div>
+                        <select name="status">
+                            <option value="0" selected="@(ViewData["CurrentStatus"]?.ToString() == "0")">All status</option>
+                            <option value="1" selected="@(ViewData["CurrentStatus"]?.ToString() == "1")">Coming Soon</option>
+                            <option value="2" selected="@(ViewData["CurrentStatus"]?.ToString() == "2")">On Going</option>
+                            <option value="3" selected="@(ViewData["CurrentStatus"]?.ToString() == "3")">Finished</option>
+                        </select>
+                        <label>Status</label>
 
                         <div class="input-field col s12 m3 center-align">
                             <button type="submit" class="btn deep-purple waves-effect">
-                                Filtrar
+                                Filter
                             </button>
-                            <a asp-action="Index" class="btn-flat waves-effect grey-text">Limpiar</a>
+                            <a asp-action="Gallery" class="btn-flat waves-effect grey-text">Clear</a>
                         </div>
                     </div>
                 </form>
@@ -97,4 +91,16 @@
         EventStatus.Finished => "check",
         _ => "help"
     };
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            var elems = document.querySelectorAll('select');
+            M.FormSelect.init(elems);
+            
+            M.Datepicker.init(document.querySelectorAll('.datepicker'));
+        });
+    </script>
 }

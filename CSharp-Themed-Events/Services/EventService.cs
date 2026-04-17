@@ -46,4 +46,26 @@ public class EventService
             await _context.SaveChangesAsync();
         }
     }
+
+    public async Task<List<Event>> FilterEvents(DateTime? startDate, DateTime? endDate, int? status)
+    {
+        IQueryable<Event> query = _context.Event;
+
+        if (startDate.HasValue)
+        {
+            query = query.Where(e => e.Date >= startDate.Value);
+        }
+        
+        if (endDate.HasValue)
+        {
+            query = query.Where(e => e.Date <= endDate.Value);
+        }
+
+        if (status.HasValue && status.Value > 0)
+        {
+            query = query.Where(e => (int)e.Status == status.Value);
+        }
+
+        return await query.ToListAsync();
+    }
 }
