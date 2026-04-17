@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CSharp-Themed-Events")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+70ae4055b828396a57200acbab35cc96fd487682")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b8f96530d7b3a74f83e507196d0b1cb0f7f7e39")]
 [assembly: System.Reflection.AssemblyProductAttribute("CSharp-Themed-Events")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CSharp-Themed-Events")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

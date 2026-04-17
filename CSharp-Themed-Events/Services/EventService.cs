@@ -1,4 +1,5 @@
-﻿using CSharp_Themed_Events.Data;
+﻿using System.Text.Json;
+using CSharp_Themed_Events.Data;
 using CSharp_Themed_Events.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,5 +23,27 @@ public class EventService
     {
         await _context.AddAsync(newEvent);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateEvent(Event newEvent)
+    {
+        var oldEvent = await _context.Event.FirstOrDefaultAsync(x => x.Id == newEvent.Id);
+        
+        if (oldEvent != null)
+        {
+            _context.Entry(oldEvent).CurrentValues.SetValues(newEvent);
+            await _context.SaveChangesAsync();
+        }
+    }
+    
+    public async Task DeleteEvent(int id)
+    {
+        var oldEvent = await _context.Event.FirstOrDefaultAsync(x => x.Id == id);
+        Console.WriteLine();
+        if (oldEvent != null)
+        {
+            _context.Remove(oldEvent);
+            await _context.SaveChangesAsync();
+        }
     }
 }

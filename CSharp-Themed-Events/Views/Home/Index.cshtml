@@ -79,46 +79,147 @@
         <div class="col s12">
             <table class="striped highlight white z-depth-1">
                 <thead class="deep-purple darken-3 white-text">
-                    <tr>
-                        <th>Name</th>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th class="center-align">Status</th>
-                        <th class="center-align">Actions</th>
-                    </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th class="center-align">Status</th>
+                    <th class="center-align">Actions</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @if (Model.EventList != null && Model.EventList.Any())
+                @if (Model.EventList != null && Model.EventList.Any())
+                {
+                    @foreach (var item in Model.EventList)
                     {
-                        @foreach (var item in Model.EventList)
-                        {
-                            <tr>
-                                <td><strong>@item.Name</strong></td>
-                                <td>@item.Date.ToShortDateString()</td>
-                                <td>@item.Location</td>
-                                <td class="center-align">
-                                    @switch (item.Status)
-                                    {
-                                        case EventStatus.ComingSoon: 
-                                            <span class="badge deep-purple darken-1 white-text">Coming Soon</span> 
-                                            break;
-                                        case EventStatus.OnGoing: 
-                                            <span class="badge deep-purple darken-2 white-text">On Going</span> 
-                                            break;
-                                        case EventStatus.Finished: 
-                                            <span class="badge deep-purple darken-4 white-text">Finished</span> 
-                                            break;
-                                    }
-                                </td>
-                                <td class="center-align">
-                                    <a class="btn-flat waves-effect"><i class="material-icons deep-purple-text text-darken-1">edit</i></a>
-                                    <a class="btn-flat waves-effect"><i class="material-icons red-text">delete</i></a>
-                                </td>
-                            </tr>
-                        }
+                        <tr>
+                            <td><strong>@item.Name</strong></td>
+                            <td>@item.Date.ToShortDateString()</td>
+                            <td>@item.Location</td>
+                            <td class="center-align">
+                                @switch (item.Status)
+                                {
+                                    case EventStatus.ComingSoon: 
+                                        <span class="badge deep-purple darken-1 white-text">Coming Soon</span> 
+                                        break;
+                                    case EventStatus.OnGoing: 
+                                        <span class="badge deep-purple darken-2 white-text">On Going</span> 
+                                        break;
+                                    case EventStatus.Finished: 
+                                        <span class="badge deep-purple darken-4 white-text">Finished</span> 
+                                        break;
+                                }
+                            </td>
+                            <td class="center-align">
+                                <a class="btn-flat waves-effect modal-trigger edit-trigger" 
+                                   href="#modalEdit" 
+                                   data-id="@item.Id"
+                                   data-name="@item.Name"
+                                   data-date="@item.Date.ToString("MMMM dd, yyyy")"
+                                   data-location="@item.Location"
+                                   data-url="@item.ImgURL"
+                                   data-description="@item.Description"
+                                   data-status="@((int)item.Status)">
+                                    <i class="material-icons deep-purple-text text-darken-1">edit</i>
+                                </a>
+                                <form asp-action="DeleteEvent" asp-controller="Event" asp-route-id="@item.Id" method="post" style="display:inline;">
+                                    <button type="submit" class="btn-flat waves-effect" 
+                                            onclick="return confirm('Sure to delete @item.Name?')">
+                                        <i class="material-icons red-text">delete</i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
                     }
+                }
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<div id="modalEdit" class="modal">
+    <form asp-controller="Event" asp-action="EditEvent" method="post">
+        <div class="modal-content">
+            <h4>Edit Event</h4>
+            <input type="hidden" id="edit-id" name="NewEvent.Id" />
+            
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" id="edit-name" name="NewEvent.Name" class="validate" required>
+                    <label for="edit-name" class="active">Name</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="text" id="edit-date" name="NewEvent.Date" class="datepicker" required>
+                    <label for="edit-date" class="active">Date</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="text" id="edit-location" name="NewEvent.Location" class="validate">
+                    <label for="edit-location" class="active">Location</label>
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">link</i>
+                    <input type="url" id="edit-url" name="NewEvent.ImgURL" class="validate">
+                    <label for="edit-url" class="active">Image URL</label>
+                </div>
+
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">description</i>
+                    <textarea id="edit-description" name="NewEvent.Description" class="materialize-textarea"></textarea>
+                    <label for="edit-description" class="active">Description</label>
+                </div>
+
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">info</i>
+                    <select id="edit-status" name="NewEvent.Status">
+                        <option value="" disabled>Choose an option</option>
+                        <option value="1">Coming Soon</option>
+                        <option value="2">On Going</option>
+                        <option value="3">Finished</option>
+                    </select>
+                    <label>Event Status</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close btn-flat">Cancel</a>
+            <button type="submit" class="btn deep-purple">Update</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializa todos los modales
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems);
+        });
+        
+        document.querySelectorAll('.edit-trigger').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+                const url = this.getAttribute('data-url');
+                const description = this.getAttribute('data-description');
+                const status = this.getAttribute('data-status');
+                const location = this.getAttribute('data-location');
+                const date = this.getAttribute('data-date');
+                
+                document.getElementById('edit-id').value = id;
+                document.getElementById('edit-name').value = name;
+                document.getElementById('edit-location').value = location;
+                document.getElementById('edit-url').value = url;
+                document.getElementById('edit-description').value = description;
+                document.getElementById('edit-date').value = date;
+                
+                const statusSelect = document.getElementById('edit-status');
+                statusSelect.value = status;
+                
+                M.updateTextFields();
+                M.FormSelect.init(statusSelect);
+                M.textareaAutoResize(document.getElementById('edit-description'));
+            });
+        });
+    </script>
+}

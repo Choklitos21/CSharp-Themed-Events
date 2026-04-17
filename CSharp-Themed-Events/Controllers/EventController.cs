@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using CSharp_Themed_Events.Models;
 using CSharp_Themed_Events.Services;
 using Microsoft.EntityFrameworkCore;
@@ -15,25 +16,23 @@ public class EventController : Controller
     {
         _eventService = eventService;
     }
-    
-    // [HttpPost]
-    // public async Task<IActionResult> CreateEvent(Event newEvent)
-    // {
-    //     if (ModelState.IsValid)
-    //     {
-    //         _context.Users.Add(newUser);
-    //         await _context.SaveChangesAsync();
-    //         return RedirectToAction();
-    //     }
-    //
-    //     return View(newUser);
-    // }
-    
-    // public async Task<IActionResult> Index()
-    // {
-    //     var events = _eventService.GetEvents();
-    //     if (events != null) return View(events);
-    //     return View();
-    // }
 
+    public async Task<IActionResult> EditEvent(Event newEvent)
+    {
+        
+        if (ModelState.IsValid)
+        {
+            await _eventService.UpdateEvent(newEvent);
+        }
+
+        return RedirectToAction("Index", "Home");
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> DeleteEvent(int id)
+    {
+        await _eventService.DeleteEvent(id);
+
+        return RedirectToAction("Index", "Home");
+    }
 }
