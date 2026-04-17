@@ -80,3 +80,15 @@ textarea:focus:not([readonly]) + label {
   font-weight: 500;
   min-width: 100px !important;
 }
+
+/* Estilos para mi Galería de Eventos */
+.gallery-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gallery-img {
+  height: 200px;
+  object-fit: cover;
+}

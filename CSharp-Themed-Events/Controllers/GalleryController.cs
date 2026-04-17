@@ -11,4 +11,11 @@ public class GalleryController: Controller
     {
         _eventService = eventService;
     }
+    
+    public async Task<IActionResult> Gallery()
+    {
+        var events = await _eventService.GetEvents();
+        
+        return View(events);
+    }
 }
