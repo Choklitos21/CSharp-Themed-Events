@@ -68,11 +68,46 @@
 
                         <div class="card-action">
                             <span class="right grey-text" style="font-size: 0.8rem;">@item.Status</span>
+                            <div class="card-action">
+                                <button class="btn-flat waves-effect deep-purple-text text-darken-1 btn-view-details" 
+                                        data-name="@item.Name"
+                                        data-date="@item.Date.ToShortDateString()"
+                                        data-desc="@item.Description"
+                                        data-loc="@item.Location"
+                                        data-img="@item.ImgURL"
+                                        data-status="@item.Status">
+                                    Details
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             }
         }
+    </div>
+</div>
+
+<div id="modalDetails" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <div class="row">
+            <div class="col s12 m5">
+                <img id="modalImg" src="" alt="" class="responsive-img z-depth-1" style="border-radius: 8px;">
+            </div>
+            <div class="col s12 m7">
+                <h4 id="modalName" class="deep-purple-text text-darken-3" style="font-weight: bold; margin-top: 0;"></h4>
+                <div class="divider"></div>
+                <p><strong><i class="material-icons tiny">event</i> Fecha:</strong> <span id="modalDate"></span></p>
+                <p><strong><i class="material-icons tiny">place</i> Ubicación:</strong> <span id="modalLocation"></span></p>
+                <p><strong><i class="material-icons tiny">info</i> Estado:</strong> <span id="modalStatus" class="badge-status"></span></p>
+                <div class="section">
+                    <h6 style="font-weight: bold;">Descripción:</h6>
+                    <p id="modalDescription" class="grey-text text-darken-2"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect btn-flat">Cerrar</a>
     </div>
 </div>
 
@@ -101,6 +136,39 @@
             M.FormSelect.init(elems);
             
             M.Datepicker.init(document.querySelectorAll('.datepicker'));
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Inicializar el Modal
+            var modalElem = document.querySelector('#modalDetails');
+            var modalInstance = M.Modal.init(modalElem);
+
+            // 2. Manejar el click en "Ver detalles"
+            document.querySelectorAll('.btn-view-details').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Extraer datos del botón
+                    const name = this.getAttribute('data-name');
+                    const date = this.getAttribute('data-date');
+                    const desc = this.getAttribute('data-desc');
+                    const loc = this.getAttribute('data-loc');
+                    const img = this.getAttribute('data-img') || 'https://via.placeholder.com/400x300?text=No+Image';
+                    const status = this.getAttribute('data-status');
+
+                    // Inyectar datos en el modal
+                    document.getElementById('modalName').innerText = name;
+                    document.getElementById('modalDate').innerText = date;
+                    document.getElementById('modalDescription').innerText = desc;
+                    document.getElementById('modalLocation').innerText = loc;
+                    document.getElementById('modalImg').src = img;
+
+                    // Ajustar el badge del estado (opcional: podrías añadir clases de color aquí)
+                    const statusBadge = document.getElementById('modalStatus');
+                    statusBadge.innerText = status;
+
+                    // 3. Abrir el modal
+                    modalInstance.open();
+                });
+            });
         });
     </script>
 }

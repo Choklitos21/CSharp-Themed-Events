@@ -92,3 +92,20 @@ textarea:focus:not([readonly]) + label {
   height: 200px;
   object-fit: cover;
 }
+
+.modal {
+  max-height: 80% !important;
+  width: 70% !important;
+  border-radius: 12px;
+}
+
+#modalImg {
+  width: 100%;
+  object-fit: cover;
+  max-height: 350px;
+}
+
+.modal .modal-footer {
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding: 4px 20px;
+}

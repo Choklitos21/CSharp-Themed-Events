@@ -2800,11 +2800,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\diego\\OneDrive\\Documents\\Riwi\\Code\\Advance Route\\Week 4\\CSharp-Themed-Events\\CSharp-Themed-Events\\CSharp-Themed-Events\\CSharp-Themed-Events.csproj",
+      "projectUniqueName": "C:\\Users\\diego\\Development\\Riwi\\Code\\Advance Route\\Week 4\\CSharp-Themed-Events\\CSharp-Themed-Events\\CSharp-Themed-Events\\CSharp-Themed-Events.csproj",
       "projectName": "CSharp-Themed-Events",
-      "projectPath": "C:\\Users\\diego\\OneDrive\\Documents\\Riwi\\Code\\Advance Route\\Week 4\\CSharp-Themed-Events\\CSharp-Themed-Events\\CSharp-Themed-Events\\CSharp-Themed-Events.csproj",
+      "projectPath": "C:\\Users\\diego\\Development\\Riwi\\Code\\Advance Route\\Week 4\\CSharp-Themed-Events\\CSharp-Themed-Events\\CSharp-Themed-Events\\CSharp-Themed-Events.csproj",
       "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\diego\\OneDrive\\Documents\\Riwi\\Code\\Advance Route\\Week 4\\CSharp-Themed-Events\\CSharp-Themed-Events\\CSharp-Themed-Events\\obj\\",
+      "outputPath": "C:\\Users\\diego\\Development\\Riwi\\Code\\Advance Route\\Week 4\\CSharp-Themed-Events\\CSharp-Themed-Events\\CSharp-Themed-Events\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config"
